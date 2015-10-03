@@ -1,71 +1,43 @@
-// INSTRUCTIONS:
-// - create new project with this file
-// - add library "SparkFun_Photon_Weather_Shield_Library"
-// - compile and flash
-// - get an auth_token as described here: https://docs.particle.io/reference/api/#generate-an-access-token
-// - find your device ID
-// - go to: https://api.particle.io/v1/devices/{device id}/temp?access_token={access token}
-// - Profit!!!
+/* CONFIGURATION **************************************************************/
+byte server[] = { 40,122,168,214 }; // azure server => set via Particle Cloud?
+int port = 8080;
 
-// TODO:
-// - implement publish/subscribe pattern, as described here: https://docs.particle.io/reference/firmware/core/#particle-publish-
+float temp_epsilon = 0.1;
+float humidity_epsilon = 0.1;
+float baroTemp_epsilon = 0.1;
+float pascals_epsilon = 5;
+int soil_moisture_epsilon = 10;
+/* END CONFIGURATION **********************************************************/
 
-
-// This #include statement was automatically added by the Particle IDE.
 #include "SparkFun_Photon_Weather_Shield_Library/SparkFun_Photon_Weather_Shield_Library.h"
 
-/******************************************************************************
-  SparkFun Photon Weather Shield basic example
-  Joel Bartlett @ SparkFun Electronics
-  Original Creation Date: May 18, 2015
-  Updated August 21, 2015
-  This sketch prints the temperature, humidity, and barrometric preassure OR
-  altitude to the Seril port.
+float humidity = 0;
+float temp = 0;
+float pascals = 0;
+float baroTemp = 0;
+int soil_moisture_value = 0;
+float humidity_prev = 0;
+float temp_prev = 0;
+float pascals_prev = 0;
+float baroTemp_prev = 0;
+int soil_moisture_value_prev = 0;
 
-  The library used in this example can be found here:
-  https://github.com/sparkfun/SparkFun_Photon_Weather_Shield_Particle_Library
+const size_t id_len = 25;
+char id[id_len];
 
-  Hardware Connections:
-	This sketch was written specifically for the Photon Weather Shield,
-	which connects the HTU21D and MPL3115A2 to the I2C bus by default.
-  If you have an HTU21D and/or an MPL3115A2 breakout,	use the following
-  hardware setup:
-      HTU21D ------------- Photon
-      (-) ------------------- GND
-      (+) ------------------- 3.3V (VCC)
-       CL ------------------- D1/SCL
-       DA ------------------- D0/SDA
+const size_t msg_size = 120;
+char msg_str[msg_size];
 
-    MPL3115A2 ------------- Photon
-      GND ------------------- GND
-      VCC ------------------- 3.3V (VCC)
-      SCL ------------------ D1/SCL
-      SDA ------------------ D0/SDA
-
-  Development environment specifics:
-  	IDE: Particle Dev
-  	Hardware Platform: Particle Photon
-                       Particle Core
-
-  This code is beerware; if you see me (or any other SparkFun
-  employee) at the local, and you've found our code helpful,
-  please buy us a round!
-  Distributed as-is; no warranty is given.
-*******************************************************************************/
-
-double humidity = 0;
-double temp = 0;
-double pascals = 0;
-double baroTemp = 0;
-
-int count = 0;
-
-//Create Instance of HTU21D or SI7021 temp and humidity sensor and MPL3115A2 barrometric sensor
 Weather sensor;
+TCPClient client;
 
-//---------------------------------------------------------------
+int LED = D7;
+int soil_moisture = A0;
+
 void setup()
 {
+    System.deviceID().toCharArray(id, id_len);
+
     //Initialize the I2C sensors and ping them
     sensor.begin();
 
@@ -86,79 +58,83 @@ void setup()
     //from 1 to 128 samples. The higher the oversample rate the greater
     //the time between data samples.
 
-
     sensor.enableEventFlags(); //Necessary register calls to enble temp, baro ansd alt
-    
-    Particle.variable("humidity",&humidity, DOUBLE);
-    Particle.variable("temp",&temp, DOUBLE);
-    Particle.variable("baroTemp",&baroTemp, DOUBLE);
-    Particle.variable("pascals",&pascals, DOUBLE);
 
+
+    pinMode(LED, OUTPUT);
+    pinMode(soil_moisture, INPUT);
 }
 //---------------------------------------------------------------
 void loop()
 {
-      //Get readings from all sensors
-      getWeather();
+    //Get readings from all sensors
+    getWeather();
     
-      delay(1000);
+    if (hasChanged())
+    {
+        if(client.connect(server, port)) {
+            snprintf(msg_str, msg_size, "GET /backend/sensor/incoming?data=%s,%.1f,%.1f,%.1f,%.1f,%i HTTP/1.1", id, temp, humidity, baroTemp, pascals, soil_moisture_value);
+            client.println(msg_str);
+            client.println("Host: moisturizer.cloudapp.net");
+            client.println("Content-Length: 0");
+            client.println();
+
+            digitalWrite(LED, HIGH); // sets the LED on
+            delay(200);              // waits for 200mS
+            digitalWrite(LED, LOW);  // sets the LED off
+            
+            humidity_prev = humidity;
+            temp_prev = temp;
+            pascals_prev = pascals;
+            baroTemp_prev = baroTemp;
+            soil_moisture_value_prev = soil_moisture_value;
+        } else {
+            digitalWrite(LED, HIGH); // sets the LED on
+            delay(200);              // waits for 200mS
+            digitalWrite(LED, LOW);  // sets the LED off
+            delay(200);              // waits for 200mS
+            digitalWrite(LED, HIGH); // sets the LED on
+            delay(200);              // waits for 200mS
+            digitalWrite(LED, LOW);  // sets the LED off
+            delay(200);              // waits for 200mS
+        }
+        
+    }
+    delay(1000);
 }
 
+bool hasChanged() {
+    return abs(humidity_prev - humidity) > humidity_epsilon 
+        || abs(temp_prev     - temp)     > temp_epsilon
+        || abs(pascals_prev  - pascals)  > pascals_epsilon
+        || abs(baroTemp_prev - baroTemp) > baroTemp_epsilon
+        || abs(soil_moisture_value_prev - soil_moisture_value) > soil_moisture_epsilon
+    ;
+}
 
-//---------------------------------------------------------------
 void getWeather()
 {
+
   // Measure Relative Humidity from the HTU21D or Si7021
-  humidity = (double) sensor.getRH();
+  humidity = sensor.getRH();
 
   // Measure Temperature from the HTU21D or Si7021
-  temp = (double) sensor.getTemp();
+  temp = sensor.getTemp();
   // Temperature is measured every time RH is requested.
   // It is faster, therefore, to read it from previous RH
   // measurement with getTemp() instead with readTemp()
 
-  //Measure the Barometer temperature in F from the MPL3115A2
-  baroTemp = (double) sensor.readBaroTempF();
+  //Measure the Barometer temperature in C from the MPL3115A2
+  baroTemp = sensor.readBaroTemp();
 
   //Measure Pressure from the MPL3115A2
-  pascals = (double) sensor.readPressure();
+  pascals = sensor.readPressure();
 
   //If in altitude mode, you can get a reading in feet  with this line:
   //float altf = sensor.readAltitudeFt();
+  
+  
+  soil_moisture_value = analogRead(soil_moisture);
 }
-//---------------------------------------------------------------
-void printInfo()
-{
-//This function prints the weather data out to the default Serial Port
 
-  Serial.print("Temp:");
-  Serial.print(temp);
-  Serial.print("C, ");
 
-  Serial.print("Humidity:");
-  Serial.print(humidity);
-  Serial.print("%, ");
-
-  Serial.print("Baro_Temp:");
-  Serial.print(baroTemp);
-  Serial.print("F, ");
-
-  Serial.print("Pressure:");
-  Serial.print(pascals/100);
-  Serial.print("hPa, ");
-  Serial.print((pascals/100) * 0.0295300);
-  Serial.println("in.Hg");
-  //The MPL3115A2 outputs the pressure in Pascals. However, most weather stations
-  //report pressure in hectopascals or millibars. Divide by 100 to get a reading
-  //more closely resembling what online weather reports may say in hPa or mb.
-  //Another common unit for pressure is Inches of Mercury (in.Hg). To convert
-  //from mb to in.Hg, use the following formula. P(inHg) = 0.0295300 * P(mb)
-  //More info on conversion can be found here:
-  //www.srh.noaa.gov/images/epz/wxcalc/pressureConversion.pdf
-
-  //If in altitude mode, print with these lines
-  //Serial.print("Altitude:");
-  //Serial.print(altf);
-  //Serial.println("ft.");
-
-}
