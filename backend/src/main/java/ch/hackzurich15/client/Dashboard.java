@@ -8,6 +8,6 @@ import org.restlet.routing.Router;
 /**
  * Created by Srikanta on 03-Oct-15.
  */
-public class Dashboard extends Application {
+public class Dashboard {
 
 }
