@@ -1,0 +1,62 @@
+[
+    {
+      "id": "sensor1",
+      "name": "Rosemary",
+      "description":"Bush of roses",
+      "state": "DRY",
+      "humidity": 60,
+      "pascals": 120,
+      "soil_moisture": 3000,
+      "temp": 22,
+      "position": {
+        "latitude": 47.410738,
+        "longitude": 8.379166
+      },
+      "image": "rosemary.jpg"
+    },
+    {
+      "id": "sensor2",
+      "name": "Yasmina",
+      "description":"Yasmine Tree",
+      "state": "WET",
+      "humidity": 40,
+      "pascals": 106,
+      "soil_moisture": 120,
+      "temp": 26,
+      "position": {
+        "latitude": 47.412253,
+        "longitude": 8.380969
+      }          ,
+      "image": "yasmine.jpg"
+    },
+    {
+      "id": "sensor3",
+      "name": "Lilly",
+      "description":"Redish flower",
+      "state": "WET",
+      "humidity": 43,
+      "pascals": 117,
+      "soil_moisture": 3100,
+      "temp": 22,
+      "position": {
+        "latitude": 47.411267,
+        "longitude": 8.382142
+      }     ,
+      "image": "lilly.jpg"
+    },
+    {
+      "id": "sensor4",
+      "name": "Jacaranda",
+      "description":"Violet tree",
+      "state": "WET",
+      "humidity": 72,
+      "pascals": 143,
+      "soil_moisture": 2472,
+      "temp": 19,
+      "position": {
+        "latitude": 47.411283,
+        "longitude": 8.380752
+      }     ,
+      "image": "jacaranda.jpg"
+    }
+  ]

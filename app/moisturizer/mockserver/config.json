@@ -1,0 +1,8 @@
+{
+  "webServices": {
+    "sensors": {
+      "verbs": ["get"],
+      "mockFile": "sensors.json"
+    }
+  }
+}
