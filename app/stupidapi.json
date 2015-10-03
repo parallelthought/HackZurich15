@@ -1,0 +1,36 @@
+{
+  "sensors": [
+    {
+      "id": "sensor1",
+      "state": "DRY",
+      "position": {
+        "latitude": 47.410738,
+        "longitude": 8.379166
+      }
+    },
+    {
+      "id": "sensor2",
+      "state": "WET",
+      "position": {
+        "latitude": 47.412253,
+        "longitude": 8.380969
+      }
+    },
+    {
+      "id": "sensor3",
+      "state": "WET",
+      "position": {
+        "latitude": 47.411267,
+        "longitude": 8.382142
+      }
+    },
+    {
+      "id": "sensor4",
+      "state": "DRY",
+      "position": {
+        "latitude": 47.411283,
+        "longitude": 8.380752
+      }
+    }
+  ]
+}

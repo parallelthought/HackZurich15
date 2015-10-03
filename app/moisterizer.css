@@ -112,4 +112,16 @@ body {
 #garden-app {
   margin-top: 100px; }
 
+.sensor-tile {
+  background-size: 120px 200px;
+  height: 300px;
+  background: rgba(48, 93, 237, 0.3) url("images/plant_full.png") no-repeat bottom center;
+  background-size: 120px 200px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 4px; }
+  .sensor-tile.dry {
+    background: rgba(237, 221, 48, 0.3) url("images/plant_empty.png") no-repeat bottom center;
+    background-size: 120px 200px; }
+
 /*# sourceMappingURL=moisterizer.css.map */

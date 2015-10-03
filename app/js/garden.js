@@ -3,7 +3,7 @@ define(["require", "exports", "controllers"], function (require, exports, contro
     'use strict';
     var GardenApp = (function () {
         function GardenApp() {
-            angular.module('garden', ['uiGmapgoogle-maps']).controller('GardenController', ['$scope', '$http', controllers.GardenController]).config(function (uiGmapGoogleMapApiProvider) {
+            angular.module('garden', ['uiGmapgoogle-maps', 'ngResource']).controller('GardenController', ['$scope', '$http', '$resource', controllers.GardenController]).config(function (uiGmapGoogleMapApiProvider) {
                 uiGmapGoogleMapApiProvider.configure({
                     //    key: 'your api key',
                     v: '3.20',

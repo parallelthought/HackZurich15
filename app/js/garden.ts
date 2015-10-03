@@ -7,8 +7,8 @@ import controllers = require("controllers");
 export class GardenApp {
     constructor() {
         angular
-            .module('garden', ['uiGmapgoogle-maps'])
-            .controller('GardenController', ['$scope', '$http', controllers.GardenController])
+            .module('garden', ['uiGmapgoogle-maps', 'ngResource'])
+            .controller('GardenController', ['$scope', '$http', '$resource', controllers.GardenController])
             .config(function (uiGmapGoogleMapApiProvider) {
                 uiGmapGoogleMapApiProvider.configure({
                     //    key: 'your api key',
