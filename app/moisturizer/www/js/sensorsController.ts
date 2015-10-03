@@ -56,9 +56,6 @@ class SensorsController implements ISensorsController {
                         }
                     });
                 });
-                //$timeout(() => {
-                //    $ionicSlideBoxDelegate.update();
-                //}, 10);
             });
         };
 

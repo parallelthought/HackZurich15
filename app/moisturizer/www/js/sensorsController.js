@@ -48,9 +48,6 @@ var SensorsController = (function () {
                         }
                     });
                 });
-                //$timeout(() => {
-                //    $ionicSlideBoxDelegate.update();
-                //}, 10);
             });
         };
         $interval(updateData, 1000);
