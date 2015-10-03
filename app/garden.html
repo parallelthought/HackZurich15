@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/moisterizer.ico">
+
+    <title>My Garden - Moisterizer</title>
+
+    <link href="bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap.css" rel="stylesheet">
+    <link href="bower_components/angular-ui-bootstrap/src/carousel/carousel.css" rel="stylesheet">
+    <link href="moisterizer.css" rel="stylesheet">
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Moist your garden</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Idea</a></li>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="./garden.html">Your Garden</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+<div class="container">
+    <div id="garden-app" ng-controller="GardenController as gardenCtrl">
+        <ui-gmap-google-map center="garden.map.center" zoom="garden.map.zoom"
+                            options="garden.map.options">
+
+        </ui-gmap-google-map>
+    </div>
+</div>
+
+<div class="container">
+    <hr class="featurette-divider">
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+
+        <p>&copy; 2015 Moisterizer, Inc. &middot; <a href="#">Fuck Privacy</a> &middot; <a href="#">Terms are for Newbies</a></p>
+    </footer>
+</div>
+<!-- /.container -->
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/lodash/lodash.min.js"></script>
+<script src="bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+<script src="bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
+<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script data-main="js/bootstrap.js" src="bower_components/requirejs/require.js"></script>
+
+
+<script>
+    !function ($) {
+        $(function () {
+            // carousel demo
+            $('#myCarousel').carousel()
+        })
+    }(window.jQuery)
+</script>
+</body>
+</html>

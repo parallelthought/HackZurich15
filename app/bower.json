@@ -1,0 +1,14 @@
+{
+  "name": "moister",
+  "description": "Visualize the moist value in farmer fields",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.5",
+    "angular-ui-bootstrap": "~0.13.4",
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular-google-maps": "~2.2.1",
+    "requirejs": "~2.1.20"
+  }
+}
