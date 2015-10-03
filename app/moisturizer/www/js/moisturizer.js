@@ -1,6 +1,7 @@
 /// <reference path="_all.ts" />
 angular.module('moisturizer', ['ngResource']).factory('Sensor', ['$resource', function ($resource) {
     return $resource('/sensors');
+    //return $resource('http://mosturizer.cloudapp.net:8080/backend/');
 }]).controller('SensorsController', ['$scope', '$ionicSlideBoxDelegate', '$timeout', 'Sensor', SensorsController]).controller('CalendarController', ['$scope', CalendarController]).controller('StatsController', ['$scope', StatsController]).controller('HintsController', ['$scope', HintsController]).config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('tab', {
         url: "/tab",

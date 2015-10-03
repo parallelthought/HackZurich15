@@ -1,4 +1,9 @@
 /* Empty. Add your own CSS if you like */
+body {
+  font-family: "Proxima Nova";
+  font-weight: 300;
+}
+
 
 .title {
   .logo {
@@ -13,6 +18,9 @@
 .plant-title {
   font-size: 25px;
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 4px;
 
   .plant-title-desc {
     opacity: 0.5;
@@ -62,6 +70,30 @@ hr {
 .sensor-image {
   height: 200px;
   width: 100%;
-  background-color: #e6e6e6;
   margin-bottom: 35px;
+  background: #e6e6e6 no-repeat top center;
+  background-size: 100%;
+}
+
+.image-calendar {
+  background-image: url('../img/calendar.png');
+  height: 100%;
+  width: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.image-stats {
+  background-image: url('../img/stats.png');
+  height: 100%;
+  width: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.item-content {
+  white-space: normal;
+  padding-right: 15px !important;
+  font-size: 18px;
+  line-height: 22px;
 }

@@ -3,6 +3,7 @@
 angular.module('moisturizer', ['ngResource'])
     .factory('Sensor', ['$resource', ($resource) => {
         return $resource('/sensors');
+        //return $resource('http://mosturizer.cloudapp.net:8080/backend/');
     }])
     .controller('SensorsController', ['$scope', '$ionicSlideBoxDelegate', '$timeout', 'Sensor', SensorsController])
     .controller('CalendarController', ['$scope', CalendarController])

@@ -4,7 +4,7 @@
   "proxies": [
       {
         "path": "/sensors",
-        "proxyUrl": "http://localhost:8888/sensors"
+        "proxyUrl": "http://mosturizer.cloudapp.net:8080/backend/state"
       }
     ]
 }

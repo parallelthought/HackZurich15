@@ -5,19 +5,19 @@
                 <ion-slide ng-repeat="sensor in garden.sensors">
                     <div class="row sensor-image image-{{sensor.id}}" ng-style="{'background-image': 'url(\'img/{{sensor.image}}\')'}">
                         <div class="col">
-                            <div class="plant-title"><span class="ion-ios-nutrition"></span> {{sensor.name}}<span class="plant-title-desc"> - {{sensor.description}}</span></div>
+                            <div class="plant-title"><span class="ion-ios-nutrition"></span> {{sensor.id}}<span class="plant-title-desc"> - {{sensor.description}}</span></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col col-50">
                             <div class="row state">
                                 <div class="col col-25">
-                                    <div class="ion-arrow-graph-up-right" ng-if="sensor.soil_moisture > 2000"></div>
-                                    <div class="ion-arrow-graph-down-right" ng-if="sensor.soil_moisture <= 2000"></div>
+                                    <div class="ion-arrow-graph-up-right" ng-if="sensor.soil_moisture > 3971"></div>
+                                    <div class="ion-arrow-graph-down-right" ng-if="sensor.soil_moisture <= 3971"></div>
                                 </div>
                                 <div class="col col-75">
-                                    <div ng-if="sensor.soil_moisture > 2000">good</div>
-                                    <div ng-if="sensor.soil_moisture <= 2000">bad</div>
+                                    <div ng-if="sensor.soil_moisture > 3971">good</div>
+                                    <div ng-if="sensor.soil_moisture <= 3971">bad</div>
                                 </div>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                                     <div class="ion-thermometer"></div>
                                 </div>
                                 <div class="col col-75">
-                                    {{sensor.temp}}°C
+                                    {{sensor.temperature}}°C
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                     <div class="ion-speedometer"></div>
                                 </div>
                                 <div class="col col-75">
-                                    {{sensor.pascals}}Pa
+                                    {{sensor.pascals}} kPa
                                 </div>
                             </div>
                         </div>
