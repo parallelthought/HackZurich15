@@ -12,12 +12,12 @@
                         <div class="col col-50">
                             <div class="row state">
                                 <div class="col col-25">
-                                    <div class="ion-arrow-graph-up-right" ng-if="sensor.soil_moisture > 3971"></div>
-                                    <div class="ion-arrow-graph-down-right" ng-if="sensor.soil_moisture <= 3971"></div>
+                                    <div class="ion-arrow-graph-up-right" ng-if="sensor.soil_moisture < 3971"></div>
+                                    <div class="ion-arrow-graph-down-right" ng-if="sensor.soil_moisture >= 3971"></div>
                                 </div>
                                 <div class="col col-75">
-                                    <div ng-if="sensor.soil_moisture > 3971">good</div>
-                                    <div ng-if="sensor.soil_moisture <= 3971">bad</div>
+                                    <div ng-if="sensor.soil_moisture < 3971">good</div>
+                                    <div ng-if="sensor.soil_moisture >= 3971">bad</div>
                                 </div>
                             </div>
                         </div>
