@@ -10,6 +10,11 @@ import org.restlet.resource.ServerResource;
 public class StateResource extends ServerResource {
     @Get
     public Representation getCurrentState(){
+        // Get the list of sensors
+
+        // Get the latest state
+
+        // Create the JSON
 
         return null;
     }
