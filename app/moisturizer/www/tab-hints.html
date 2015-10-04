@@ -1,4 +1,4 @@
-<ion-view title="Hints">
+<ion-view title="Tipps">
     <ion-content class="has-header padding">
         <ion-list ng-controller="HintsController as hintsCtrl"
                   show-delete="shouldShowDelete"
@@ -8,7 +8,7 @@
 
                 <img ng-src="{{item.img}}">
                 <h2>{{item.title}}</h2>
-                <p>{{item.description}}</p>
+                <div>{{item.description}}</div>
                 <ion-delete-button class="ion-minus-circled"
                                    ng-click="items.splice($index, 1)">
                 </ion-delete-button>
