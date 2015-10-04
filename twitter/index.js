@@ -23,6 +23,14 @@ var tweets = [
   "Aah, %s thanks you for the water. #HackZurich"
 ];
 
+var twitter_tags = [
+  "#awesome", "#LovePlants", "#water", "#WaterForPresident", "#SexyBitch", "#ClapYourLeaves", "#InternetOfPlants"
+];
+
+var twitter_handles = [
+  "@karbasa", "@isperman", "@parallelthought", "@Jadaw1n", "@olidefux"
+];
+
 var measure_threshold = 200;
 var tweet_threshold = 20 * 1000; // milliseconds
 
@@ -35,7 +43,7 @@ var send_tweet = function (id) {
 
   var item = tweets[Math.floor(Math.random() * tweets.length)];
 
-  client.post('statuses/update', {status: util.format(item, name)}, function (error, tweet, response) {
+  client.post('statuses/update', {status: util.format(item, name) + " "  + twitter_tags[Math.floor(Math.random() * twitter_tags.length)] + " " + twitter_handles[Math.floor(Math.random() * twitter_handles.length)]}, function (error, tweet, response) {
     if (error) {
       console.log(error);
     }
