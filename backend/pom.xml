@@ -28,7 +28,7 @@
 
     <properties>
         <restlet-version>2.3.4</restlet-version>
-        <jackson-version>2.6.0</jackson-version>
+        <jackson-version>2.11.3</jackson-version>
         <joda-version>2.8.1</joda-version>
     </properties>
     <dependencies>
